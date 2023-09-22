@@ -61,9 +61,12 @@ class MimeDb
     protected function loadDatabase(): MimeDb
     {
         $this->mimeDatabase = json_decode(file_get_contents($this->getDbFilename()), true);
-        $this->mimeDatabase = array_filter($this->mimeDatabase, function ($mimetypeDefinition) {
-            return isset($mimetypeDefinition['extensions']) && !empty($mimetypeDefinition['extensions']);
-        });
+        $this->mimeDatabase = array_filter(
+            $this->mimeDatabase,
+            function ($mimetypeDefinition) {
+                return isset($mimetypeDefinition['extensions']) && !empty($mimetypeDefinition['extensions']);
+            }
+        );
 
         return $this;
     }
@@ -71,16 +74,19 @@ class MimeDb
     /**
      * Find by file extension
      *
-     * @param string $lookuoFileExtension
+     * @param  string $lookuoFileExtension
      * @return string|null
      */
     public function findType(string $lookuoFileExtension): ?string
     {
         $this->initializeDatabase();
 
-        $foundMimeTypes = array_filter($this->mimeDatabase, function ($mimetypeDefinition) use ($lookuoFileExtension) {
-            return in_array(ltrim($lookuoFileExtension, "."), $mimetypeDefinition['extensions']);
-        });
+        $foundMimeTypes = array_filter(
+            $this->mimeDatabase,
+            function ($mimetypeDefinition) use ($lookuoFileExtension) {
+                return in_array(ltrim($lookuoFileExtension, "."), $mimetypeDefinition['extensions']);
+            }
+        );
 
         if (count($foundMimeTypes) === 0) {
             return null;
@@ -93,7 +99,7 @@ class MimeDb
      * Find by file extension
      * This is an alias function for findTyoe
      *
-     * @param string $lookuoFileExtension
+     * @param  string $lookuoFileExtension
      * @return string|null
      */
     public function findByExtension(string $lookuoFileExtension): ?string
@@ -104,16 +110,20 @@ class MimeDb
     /**
      * Find by mime type
      *
-     * @param string $lookupMimeType
+     * @param  string $lookupMimeType
      * @return string|null
      */
     public function findMimeType(string $lookupMimeType): ?string
     {
         $this->initializeDatabase();
 
-        $foundMimeTypes = array_filter($this->mimeDatabase, function ($mimetypeDefinition, $mimetype) use ($lookupMimeType) {
-            return strcasecmp($mimetype, $lookupMimeType) === 0;
-        }, ARRAY_FILTER_USE_BOTH);
+        $foundMimeTypes = array_filter(
+            $this->mimeDatabase,
+            function ($mimetypeDefinition, $mimetype) use ($lookupMimeType) {
+                return strcasecmp($mimetype, $lookupMimeType) === 0;
+            },
+            ARRAY_FILTER_USE_BOTH
+        );
 
         if (reset($foundMimeTypes) === false) {
             return null;
@@ -126,7 +136,7 @@ class MimeDb
      * Returns the full-qualified filename where
      * the database is located
      *
-     * @return string
+     * @return             string
      * @codeCoverageIgnore
      */
     private function getDbFilename(): string
