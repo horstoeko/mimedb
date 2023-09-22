@@ -124,19 +124,23 @@ class MimeDbTest extends TestCase
      */
     public function textFindAllFileExtensionsByMimeType(): void
     {
-        $this->assertIsArray($this->mimeDb->findAllFileExtensionsByMimeType('application/vnd.openxmlformats-officedocument.wordprocessingml.document'));
-        $this->assertArrayHasKey(0, $this->mimeDb->findAllFileExtensionsByMimeType('application/vnd.openxmlformats-officedocument.wordprocessingml.document'));
-        $this->assertArrayNotHasKey(1, $this->mimeDb->findAllFileExtensionsByMimeType('application/vnd.openxmlformats-officedocument.wordprocessingml.document'));
-        $this->assertEquals("docx", $this->mimeDb->findAllFileExtensionsByMimeType('application/vnd.openxmlformats-officedocument.wordprocessingml.document')[0]);
+        $findResult = $this->mimeDb->findAllMimeTypesByExtension('.docx');
 
-        $this->assertIsArray($this->mimeDb->findAllFileExtensionsByMimeType('video/x-matroska'));
-        $this->assertArrayHasKey(0, $this->mimeDb->findAllFileExtensionsByMimeType('video/x-matroska'));
-        $this->assertArrayHasKey(1, $this->mimeDb->findAllFileExtensionsByMimeType('video/x-matroska'));
-        $this->assertArrayHasKey(2, $this->mimeDb->findAllFileExtensionsByMimeType('video/x-matroska'));
-        $this->assertArrayNotHasKey(3, $this->mimeDb->findAllFileExtensionsByMimeType('video/x-matroska'));
-        $this->assertEquals("mkv", $this->mimeDb->findAllFileExtensionsByMimeType('video/x-matroska')[0]);
-        $this->assertEquals("mk3d", $this->mimeDb->findAllFileExtensionsByMimeType('video/x-matroska')[1]);
-        $this->assertEquals("mks", $this->mimeDb->findAllFileExtensionsByMimeType('video/x-matroska')[2]);
+        $this->assertIsArray($findResult);
+        $this->assertArrayHasKey(0, $findResult);
+        $this->assertArrayNotHasKey(1, $findResult);
+        $this->assertEquals("docx", $findResult[0]);
+
+        $findResult = $this->mimeDb->findAllFileExtensionsByMimeType('video/x-matroska');
+
+        $this->assertIsArray($findResult);
+        $this->assertArrayHasKey(0, $findResult);
+        $this->assertArrayHasKey(1, $findResult);
+        $this->assertArrayHasKey(2, $findResult);
+        $this->assertArrayNotHasKey(3, $findResult);
+        $this->assertEquals("mkv", $findResult[0]);
+        $this->assertEquals("mk3d", $findResult[1]);
+        $this->assertEquals("mks", $findResult[2]);
 
         $this->assertNull($this->mimeDb->findAllFileExtensionsByMimeType('application/pdx'));
         $this->assertNull($this->mimeDb->findAllFileExtensionsByMimeType('unknown/unknown'));
