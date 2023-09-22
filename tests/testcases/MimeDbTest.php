@@ -70,9 +70,13 @@ class MimeDbTest extends TestCase
         $this->assertEquals('application/vnd.openxmlformats-officedocument.wordprocessingml.document', $this->mimeDb->findFirstMimeTypeByExtension('.docx'));
         $this->assertEquals('video/mp4', $this->mimeDb->findFirstMimeTypeByExtension('.mp4'));
         $this->assertEquals('audio/midi', $this->mimeDb->findFirstMimeTypeByExtension('.mid'));
+        $this->assertEquals('video/x-matroska', $this->mimeDb->findFirstMimeTypeByExtension('.mkv'));
+        $this->assertEquals('video/x-matroska', $this->mimeDb->findFirstMimeTypeByExtension('.mks'));
         $this->assertEquals('application/vnd.openxmlformats-officedocument.wordprocessingml.document', $this->mimeDb->findFirstMimeTypeByExtension('docx'));
         $this->assertEquals('video/mp4', $this->mimeDb->findFirstMimeTypeByExtension('mp4'));
         $this->assertEquals('audio/midi', $this->mimeDb->findFirstMimeTypeByExtension('mid'));
+        $this->assertEquals('video/x-matroska', $this->mimeDb->findFirstMimeTypeByExtension('mkv'));
+        $this->assertEquals('video/x-matroska', $this->mimeDb->findFirstMimeTypeByExtension('mks'));
         $this->assertNull($this->mimeDb->findFirstMimeTypeByExtension('.unknown'));
     }
 
