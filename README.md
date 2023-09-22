@@ -13,6 +13,8 @@
   - [Dependencies](#dependencies)
   - [Installation](#installation)
   - [Usage](#usage)
+    - [Get all MimeTypes by file extensions](#get-all-mimetypes-by-file-extensions)
+    - [Get all file extensions by MimeType](#get-all-file-extensions-by-mimetype)
 
 ## License
 
@@ -43,3 +45,57 @@ There is one recommended way to install `horstoeko/mimedb` via [Composer](https:
 ## Usage
 
 For detailed eplanation you may have a look in the [examples](https://github.com/horstoeko/mimedb/tree/master/examples) of this package and the documentation attached to every release.
+
+### Get all MimeTypes by file extensions
+
+```php
+use horstoeko\mimedb\MimeDb;
+
+require dirname(__FILE__) . "/../vendor/autoload.php";
+
+$mimeDb = MimeDb::singleton();
+
+// OUTPUT:
+//   application/vnd.openxmlformats-officedocument.wordprocessingml.document
+
+echo $mimeDb->findFirstMimeTypeByExtension('.docx') . PHP_EOL;
+
+// OUTPUT:
+//   application/vnd.openxmlformats-officedocument.wordprocessingml.document
+
+foreach ($mimeDb->findAllMimeTypesByExtension('.docx') as $mimetype) {
+    echo $mimetype . PHP_EOL;
+}
+```
+
+### Get all file extensions by MimeType
+
+```php
+
+use horstoeko\mimedb\MimeDb;
+
+error_reporting(E_ERROR | E_WARNING | E_PARSE);
+
+$mimeDb = MimeDb::singleton();
+
+// OUTPUT:
+//   docx
+
+echo $mimeDb->findFirstFileExtensionByMimeType('application/vnd.openxmlformats-officedocument.wordprocessingml.document') . PHP_EOL;
+
+// OUTPUT:
+//   mkv
+//   mk3d
+//   mks
+
+foreach ($mimeDb->findAllFileExtensionsByMimeType('video/x-matroska') as $fileExtension) {
+    echo $fileExtension . PHP_EOL;
+}
+
+// OUTPUT:
+//   docx
+
+foreach ($mimeDb->findAllFileExtensionsByMimeType('application/vnd.openxmlformats-officedocument.wordprocessingml.document') as $fileExtension) {
+    echo $fileExtension . PHP_EOL;
+}
+```

@@ -65,7 +65,7 @@ class MimeDbTest extends TestCase
      * @covers \horstoeko\mimeDb\MimeDb::loadDatabase
      * @return void
      */
-    public function testFindType(): void
+    public function testFindFirstMimeTypeByExtension(): void
     {
         $this->assertEquals('application/vnd.openxmlformats-officedocument.wordprocessingml.document', $this->mimeDb->findFirstMimeTypeByExtension('.docx'));
         $this->assertEquals('video/mp4', $this->mimeDb->findFirstMimeTypeByExtension('.mp4'));
