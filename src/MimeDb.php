@@ -21,11 +21,32 @@ namespace horstoeko\mimedb;
 class MimeDb
 {
     /**
+     * Instance
+     *
+     * @var horstoeko\mimedb\MimeDb
+     */
+    protected static $singleton = null;
+
+    /**
      * The internal mime database
      *
      * @var array
      */
     protected $mimeDatabase = [];
+
+    /**
+     * Create instance (Singleton pattern)
+     *
+     * @return MimeDb
+     */
+    public static function singleton(): MimeDb
+    {
+        if (is_null(static::$singleton)) {
+            static::$singleton = new static();
+        }
+
+        return static::$singleton;
+    }
 
     /**
      * Load mime db
@@ -72,12 +93,29 @@ class MimeDb
     }
 
     /**
-     * Find by file extension
+     * Find first mimetype by file extension
      *
      * @param  string $lookuoFileExtension
      * @return string|null
      */
     public function findType(string $lookuoFileExtension): ?string
+    {
+        $mimeTypes = $this->findTypeAll($lookuoFileExtension);
+
+        if (is_null($mimeTypes)) {
+            return null;
+        }
+
+        return $mimeTypes[0];
+    }
+
+    /**
+     * Find all mimetypes by file extension
+     *
+     * @param  string $lookuoFileExtension
+     * @return array|null
+     */
+    public function findTypeAll(string $lookuoFileExtension): ?array
     {
         $this->initializeDatabase();
 
@@ -92,7 +130,7 @@ class MimeDb
             return null;
         }
 
-        return array_keys($foundDbEntries)[0];
+        return array_keys($foundDbEntries);
     }
 
     /**
@@ -108,12 +146,29 @@ class MimeDb
     }
 
     /**
-     * Find by mime type
+     * Gwt first file extension by mimetype
      *
      * @param  string $lookupMimeType
      * @return string|null
      */
     public function findMimeType(string $lookupMimeType): ?string
+    {
+        $fileExtensions = $this->findMimeTypeAll($lookupMimeType);
+
+        if (is_null($fileExtensions)) {
+            return null;
+        }
+
+        return $fileExtensions[0];
+    }
+
+    /**
+     * Gwt all file extensions by mimetype
+     *
+     * @param  string $lookupMimeType
+     * @return array|null
+     */
+    public function findMimeTypeAll(string $lookupMimeType): ?array
     {
         $this->initializeDatabase();
 
@@ -129,7 +184,7 @@ class MimeDb
             return null;
         }
 
-        return current($foundDbEntries)["extensions"][0];
+        return current($foundDbEntries)["extensions"];
     }
 
     /**

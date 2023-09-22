@@ -33,9 +33,33 @@ class MimeDbTest extends TestCase
     }
 
     /**
+     * Test "singleton" method
+     *
+     * @covers \horstoeko\mimeDb\MimeDb::singleton
+     * @return void
+     */
+    public function testSingleton(): void
+    {
+        $instance = MimeDb::singleton();
+
+        $this->assertNotNull($instance);
+        $this->assertInstanceOf(MimeDb::class, $instance);
+        $this->assertEmpty($this->getPrivatePropertyFromObject($instance, 'mimeDatabase')->getValue($instance));
+
+        $instance->findType('.mp4');
+
+        $this->assertNotEmpty($this->getPrivatePropertyFromObject($instance, 'mimeDatabase')->getValue($instance));
+
+        $instance2 = MimeDb::singleton();
+
+        $this->assertNotEmpty($this->getPrivatePropertyFromObject($instance2, 'mimeDatabase')->getValue($instance2));
+    }
+
+    /**
      * Test "findType" method
      *
      * @covers \horstoeko\mimeDb\MimeDb::findType
+     * @covers \horstoeko\mimeDb\MimeDb::findTypeAll
      * @covers \horstoeko\mimeDb\MimeDb::initializeDatabase
      * @covers \horstoeko\mimeDb\MimeDb::loadedDatabase
      * @covers \horstoeko\mimeDb\MimeDb::loadDatabase
@@ -53,8 +77,28 @@ class MimeDbTest extends TestCase
     }
 
     /**
+     * Test "findTypeAll" method
+     *
+     * @covers \horstoeko\mimeDb\MimeDb::findTypeAll
+     * @covers \horstoeko\mimeDb\MimeDb::initializeDatabase
+     * @covers \horstoeko\mimeDb\MimeDb::loadedDatabase
+     * @covers \horstoeko\mimeDb\MimeDb::loadDatabase
+     * @return void
+     */
+    public function testFindTypeAll(): void
+    {
+        $this->assertIsArray($this->mimeDb->findTypeAll('.docx'));
+        $this->assertArrayHasKey(0, $this->mimeDb->findTypeAll('.docx'));
+        $this->assertArrayNotHasKey(1, $this->mimeDb->findTypeAll('.docx'));
+
+        $this->assertNull($this->mimeDb->findTypeAll('.unknown'));
+    }
+
+    /**
      * Test "findByExtension" method
      *
+     * @covers \horstoeko\mimeDb\MimeDb::findType
+     * @covers \horstoeko\mimeDb\MimeDb::findTypeAll
      * @covers \horstoeko\mimeDb\MimeDb::findByExtension
      * @covers \horstoeko\mimeDb\MimeDb::initializeDatabase
      * @covers \horstoeko\mimeDb\MimeDb::loadedDatabase
@@ -76,6 +120,7 @@ class MimeDbTest extends TestCase
      * Test "findMimeType" method
      *
      * @covers \horstoeko\mimeDb\MimeDb::findMimeType
+     * @covers \horstoeko\mimeDb\MimeDb::findMimeTypeAll
      * @covers \horstoeko\mimeDb\MimeDb::initializeDatabase
      * @covers \horstoeko\mimeDb\MimeDb::loadedDatabase
      * @covers \horstoeko\mimeDb\MimeDb::loadDatabase
@@ -87,5 +132,34 @@ class MimeDbTest extends TestCase
         $this->assertEquals("mp4", $this->mimeDb->findMimeType('video/mp4'));
         $this->assertEquals("mid", $this->mimeDb->findMimeType('audio/midi'));
         $this->assertNull($this->mimeDb->findMimeType('unknown/unknown'));
+    }
+
+    /**
+     * Test "findMimeTypeAll" method
+     *
+     * @covers \horstoeko\mimeDb\MimeDb::findMimeTypeAll
+     * @covers \horstoeko\mimeDb\MimeDb::initializeDatabase
+     * @covers \horstoeko\mimeDb\MimeDb::loadedDatabase
+     * @covers \horstoeko\mimeDb\MimeDb::loadDatabase
+     * @return void
+     */
+    public function testFindMimeTypeAll(): void
+    {
+        $this->assertIsArray($this->mimeDb->findMimeTypeAll('application/vnd.openxmlformats-officedocument.wordprocessingml.document'));
+        $this->assertArrayHasKey(0, $this->mimeDb->findMimeTypeAll('application/vnd.openxmlformats-officedocument.wordprocessingml.document'));
+        $this->assertArrayNotHasKey(1, $this->mimeDb->findMimeTypeAll('application/vnd.openxmlformats-officedocument.wordprocessingml.document'));
+        $this->assertEquals("docx", $this->mimeDb->findMimeTypeAll('application/vnd.openxmlformats-officedocument.wordprocessingml.document')[0]);
+
+        $this->assertIsArray($this->mimeDb->findMimeTypeAll('video/x-matroska'));
+        $this->assertArrayHasKey(0, $this->mimeDb->findMimeTypeAll('video/x-matroska'));
+        $this->assertArrayHasKey(1, $this->mimeDb->findMimeTypeAll('video/x-matroska'));
+        $this->assertArrayHasKey(2, $this->mimeDb->findMimeTypeAll('video/x-matroska'));
+        $this->assertArrayNotHasKey(3, $this->mimeDb->findMimeTypeAll('video/x-matroska'));
+        $this->assertEquals("mkv", $this->mimeDb->findMimeTypeAll('video/x-matroska')[0]);
+        $this->assertEquals("mk3d", $this->mimeDb->findMimeTypeAll('video/x-matroska')[1]);
+        $this->assertEquals("mks", $this->mimeDb->findMimeTypeAll('video/x-matroska')[2]);
+
+        $this->assertNull($this->mimeDb->findMimeTypeAll('application/pdx'));
+        $this->assertNull($this->mimeDb->findMimeTypeAll('unknown/unknown'));
     }
 }
