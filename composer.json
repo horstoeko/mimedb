@@ -1,6 +1,9 @@
 {
     "name": "horstoeko/mimedb",
-    "keywords": [],
+    "keywords": [
+        "Mimetype",
+        "file Extension"
+    ],
     "description": "Get mimetypes by fileextensions and visa versa",
     "homepage": "https://github.com/horstoeko/mimedb",
     "type": "package",
