@@ -81,18 +81,18 @@ class MimeDb
     {
         $this->initializeDatabase();
 
-        $foundMimeTypes = array_filter(
+        $foundDbEntries = array_filter(
             $this->mimeDatabase,
             function ($mimetypeDefinition) use ($lookuoFileExtension) {
                 return in_array(ltrim($lookuoFileExtension, "."), $mimetypeDefinition['extensions']);
             }
         );
 
-        if (count($foundMimeTypes) === 0) {
+        if (count($foundDbEntries) === 0) {
             return null;
         }
 
-        return array_keys($foundMimeTypes)[0];
+        return array_keys($foundDbEntries)[0];
     }
 
     /**
@@ -117,7 +117,7 @@ class MimeDb
     {
         $this->initializeDatabase();
 
-        $foundMimeTypes = array_filter(
+        $foundDbEntries = array_filter(
             $this->mimeDatabase,
             function ($mimetypeDefinition, $mimetype) use ($lookupMimeType) {
                 return strcasecmp($mimetype, $lookupMimeType) === 0;
@@ -125,11 +125,11 @@ class MimeDb
             ARRAY_FILTER_USE_BOTH
         );
 
-        if (reset($foundMimeTypes) === false) {
+        if (reset($foundDbEntries) === false) {
             return null;
         }
 
-        return current($foundMimeTypes)["extensions"][0];
+        return current($foundDbEntries)["extensions"][0];
     }
 
     /**
