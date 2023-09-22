@@ -98,9 +98,9 @@ class MimeDb
      * @param  string $lookuoFileExtension
      * @return string|null
      */
-    public function findType(string $lookuoFileExtension): ?string
+    public function findFirstMimeTypeByExtension(string $lookuoFileExtension): ?string
     {
-        $mimeTypes = $this->findTypeAll($lookuoFileExtension);
+        $mimeTypes = $this->findAllMimeTypesByExtension($lookuoFileExtension);
 
         if (is_null($mimeTypes)) {
             return null;
@@ -115,7 +115,7 @@ class MimeDb
      * @param  string $lookuoFileExtension
      * @return array|null
      */
-    public function findTypeAll(string $lookuoFileExtension): ?array
+    public function findAllMimeTypesByExtension(string $lookuoFileExtension): ?array
     {
         $this->initializeDatabase();
 
@@ -135,14 +135,14 @@ class MimeDb
 
     /**
      * Find by file extension
-     * This is an alias function for findTyoe
+     * This is an alias function for findFirstMimeTypeByExtension
      *
      * @param  string $lookuoFileExtension
      * @return string|null
      */
     public function findByExtension(string $lookuoFileExtension): ?string
     {
-        return $this->findType($lookuoFileExtension);
+        return $this->findFirstMimeTypeByExtension($lookuoFileExtension);
     }
 
     /**
@@ -151,9 +151,9 @@ class MimeDb
      * @param  string $lookupMimeType
      * @return string|null
      */
-    public function findMimeType(string $lookupMimeType): ?string
+    public function findFirstFileExtensionByMimeType(string $lookupMimeType): ?string
     {
-        $fileExtensions = $this->findMimeTypeAll($lookupMimeType);
+        $fileExtensions = $this->findAllFileExtensionsByMimeType($lookupMimeType);
 
         if (is_null($fileExtensions)) {
             return null;
@@ -168,7 +168,7 @@ class MimeDb
      * @param  string $lookupMimeType
      * @return array|null
      */
-    public function findMimeTypeAll(string $lookupMimeType): ?array
+    public function findAllFileExtensionsByMimeType(string $lookupMimeType): ?array
     {
         $this->initializeDatabase();
 
