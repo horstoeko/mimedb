@@ -92,6 +92,11 @@ class MimeDbTest extends TestCase
         $this->assertArrayNotHasKey(1, $this->mimeDb->findAllMimeTypesByExtension('.docx'));
         $this->assertEquals("application/vnd.openxmlformats-officedocument.wordprocessingml.document", $this->mimeDb->findAllMimeTypesByExtension('.docx')[0]);
 
+        $this->assertIsArray($this->mimeDb->findAllMimeTypesByExtension('docx'));
+        $this->assertArrayHasKey(0, $this->mimeDb->findAllMimeTypesByExtension('docx'));
+        $this->assertArrayNotHasKey(1, $this->mimeDb->findAllMimeTypesByExtension('docx'));
+        $this->assertEquals("application/vnd.openxmlformats-officedocument.wordprocessingml.document", $this->mimeDb->findAllMimeTypesByExtension('.docx')[0]);
+
         $this->assertNull($this->mimeDb->findAllMimeTypesByExtension('.unknown'));
     }
 
