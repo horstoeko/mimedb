@@ -34,13 +34,23 @@ class MimeDb
      */
     protected function initializeDatabase(): MimeDb
     {
-        if (!empty($this->mimeDatabase)) {
+        if ($this->loadedDatabase()) {
             return $this;
         }
 
         $this->loadDatabase();
 
         return $this;
+    }
+
+    /**
+     * Returns true if the internal database was already loaded
+     *
+     * @return boolean
+     */
+    protected function loadedDatabase(): bool
+    {
+        return !empty($this->mimeDatabase);
     }
 
     /**

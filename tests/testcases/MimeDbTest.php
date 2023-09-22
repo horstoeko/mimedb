@@ -37,6 +37,7 @@ class MimeDbTest extends TestCase
      *
      * @covers \horstoeko\mimeDb\MimeDb::findType
      * @covers \horstoeko\mimeDb\MimeDb::initializeDatabase
+     * @covers \horstoeko\mimeDb\MimeDb::loadedDatabase
      * @covers \horstoeko\mimeDb\MimeDb::loadDatabase
      * @return void
      */
@@ -56,6 +57,7 @@ class MimeDbTest extends TestCase
      *
      * @covers \horstoeko\mimeDb\MimeDb::findByExtension
      * @covers \horstoeko\mimeDb\MimeDb::initializeDatabase
+     * @covers \horstoeko\mimeDb\MimeDb::loadedDatabase
      * @covers \horstoeko\mimeDb\MimeDb::loadDatabase
      * @return void
      */
@@ -75,6 +77,7 @@ class MimeDbTest extends TestCase
      *
      * @covers \horstoeko\mimeDb\MimeDb::findMimeType
      * @covers \horstoeko\mimeDb\MimeDb::initializeDatabase
+     * @covers \horstoeko\mimeDb\MimeDb::loadedDatabase
      * @covers \horstoeko\mimeDb\MimeDb::loadDatabase
      * @return void
      */
