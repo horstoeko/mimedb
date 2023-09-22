@@ -1,7 +1,7 @@
 {
     "name": "horstoeko/mimedb",
     "keywords": [],
-    "description": "A library",
+    "description": "Get mimetypes by fileextensions and visa versa",
     "homepage": "https://github.com/horstoeko/mimedb",
     "type": "package",
     "license": "MIT",
