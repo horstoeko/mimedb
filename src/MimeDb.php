@@ -93,7 +93,7 @@ class MimeDb
     }
 
     /**
-     * Find first mimetype by file extension
+     * Get first mimetype by file extension
      *
      * @param  string $lookuoFileExtension
      * @return string|null
@@ -110,7 +110,7 @@ class MimeDb
     }
 
     /**
-     * Find all mimetypes by file extension
+     * Get all mimetypes by file extension
      *
      * @param  string $lookuoFileExtension
      * @return array|null
@@ -134,19 +134,7 @@ class MimeDb
     }
 
     /**
-     * Find by file extension
-     * This is an alias function for findFirstMimeTypeByExtension
-     *
-     * @param  string $lookuoFileExtension
-     * @return string|null
-     */
-    public function findByExtension(string $lookuoFileExtension): ?string
-    {
-        return $this->findFirstMimeTypeByExtension($lookuoFileExtension);
-    }
-
-    /**
-     * Gwt first file extension by mimetype
+     * Get first file extension by mimetype
      *
      * @param  string $lookupMimeType
      * @return string|null
@@ -163,7 +151,7 @@ class MimeDb
     }
 
     /**
-     * Gwt all file extensions by mimetype
+     * Get all file extensions by mimetype
      *
      * @param  string $lookupMimeType
      * @return array|null
