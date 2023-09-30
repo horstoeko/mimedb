@@ -55,11 +55,9 @@ class MimeDb
      */
     protected function initializeDatabase(): MimeDb
     {
-        if ($this->loadedDatabase()) {
-            return $this;
+        if (!$this->loadedDatabase()) {
+            $this->loadDatabase();
         }
-
-        $this->loadDatabase();
 
         return $this;
     }
