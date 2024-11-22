@@ -1,8 +1,11 @@
 # MimeDB
 
-[![Latest Stable Version](https://poser.pugx.org/horstoeko/mimedb/v/stable.png)](https://packagist.org/packages/horstoeko/mimedb) [![Total Downloads](https://poser.pugx.org/horstoeko/mimedb/downloads.png)](https://packagist.org/packages/horstoeko/mimedb) [![Latest Unstable Version](https://poser.pugx.org/horstoeko/mimedb/v/unstable.png)](https://packagist.org/packages/horstoeko/mimedb) [![License](https://poser.pugx.org/horstoeko/mimedb/license.png)](https://packagist.org/packages/horstoeko/mimedb) [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/horstoeko/mimedb)
+[![Latest Stable Version](https://img.shields.io/packagist/v/horstoeko/mimedb.svg?style=plastic)](https://packagist.org/packages/horstoeko/mimedb)
+[![PHP version](https://img.shields.io/packagist/php-v/horstoeko/mimedb.svg?style=plastic)](https://packagist.org/packages/horstoeko/mimedb)
+[![License](https://img.shields.io/packagist/l/horstoeko/mimedb.svg?style=plastic)](https://packagist.org/packages/horstoeko/mimedb)
 
-[![CI (Ant, PHP 7.3)](https://github.com/horstoeko/mimedb/actions/workflows/build.php73.ant.yml/badge.svg)](https://github.com/horstoeko/mimedb/actions/workflows/build.php73.ant.yml) [![CI (Ant, PHP 7.4)](https://github.com/horstoeko/mimedb/actions/workflows/build.php74.ant.yml/badge.svg)](https://github.com/horstoeko/mimedb/actions/workflows/build.php74.ant.yml) [![CI (PHP 8.0)](https://github.com/horstoeko/mimedb/actions/workflows/build.php80.ant.yml/badge.svg)](https://github.com/horstoeko/mimedb/actions/workflows/build.php80.ant.yml) [![CI (PHP 8.1)](https://github.com/horstoeko/mimedb/actions/workflows/build.php81.ant.yml/badge.svg)](https://github.com/horstoeko/mimedb/actions/workflows/build.php81.ant.yml)
+[![Build Status](https://github.com/horstoeko/mimedb/actions/workflows/build.ci.yml/badge.svg)](https://github.com/horstoeko/mimedb/actions/workflows/build.ci.yml)
+[![Release Status](https://github.com/horstoeko/mimedb/actions/workflows/build.release.yml/badge.svg)](https://github.com/horstoeko/mimedb/actions/workflows/build.release.yml)
 
 ## Table of Contents
 
