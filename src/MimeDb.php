@@ -23,7 +23,7 @@ class MimeDb
     /**
      * Instance
      *
-     * @var horstoeko\mimedb\MimeDb
+     * @var MimeDb
      */
     protected static $singleton = null;
 
@@ -42,7 +42,7 @@ class MimeDb
     public static function singleton(): MimeDb
     {
         if (is_null(static::$singleton)) {
-            static::$singleton = new static();
+            static::$singleton = new MimeDb();
         }
 
         return static::$singleton;
@@ -93,12 +93,12 @@ class MimeDb
     /**
      * Get first mimetype by file extension
      *
-     * @param  string $lookuoFileExtension
+     * @param  string $lookupFileExtension
      * @return string|null
      */
-    public function findFirstMimeTypeByExtension(string $lookuoFileExtension): ?string
+    public function findFirstMimeTypeByExtension(string $lookupFileExtension): ?string
     {
-        $mimeTypes = $this->findAllMimeTypesByExtension($lookuoFileExtension);
+        $mimeTypes = $this->findAllMimeTypesByExtension($lookupFileExtension);
 
         if (is_null($mimeTypes)) {
             return null;
@@ -110,17 +110,17 @@ class MimeDb
     /**
      * Get all mimetypes by file extension
      *
-     * @param  string $lookuoFileExtension
+     * @param  string $lookupFileExtension
      * @return array|null
      */
-    public function findAllMimeTypesByExtension(string $lookuoFileExtension): ?array
+    public function findAllMimeTypesByExtension(string $lookupFileExtension): ?array
     {
         $this->initializeDatabase();
 
         $foundDbEntries = array_filter(
             $this->mimeDatabase,
-            function ($mimetypeDefinition) use ($lookuoFileExtension) {
-                return in_array(ltrim($lookuoFileExtension, "."), $mimetypeDefinition['extensions']);
+            function ($mimetypeDefinition) use ($lookupFileExtension) {
+                return in_array(ltrim($lookupFileExtension, "."), $mimetypeDefinition['extensions']);
             }
         );
 
@@ -160,7 +160,7 @@ class MimeDb
 
         $foundDbEntries = array_filter(
             $this->mimeDatabase,
-            function ($mimetypeDefinition, $mimetype) use ($lookupMimeType) {
+            function ($_, $mimetype) use ($lookupMimeType) {
                 return strcasecmp($mimetype, $lookupMimeType) === 0;
             },
             ARRAY_FILTER_USE_BOTH
