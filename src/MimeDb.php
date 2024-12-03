@@ -120,7 +120,7 @@ class MimeDb
         $foundDbEntries = array_filter(
             $this->mimeDatabase,
             function ($mimetypeDefinition) use ($lookupFileExtension) {
-                return in_array(ltrim($lookupFileExtension, "."), $mimetypeDefinition['extensions']);
+                return in_array(strtolower(ltrim($lookupFileExtension, ".")), $mimetypeDefinition['extensions']);
             }
         );
 
