@@ -12,7 +12,7 @@ class MimeDbTest extends TestCase
      *
      * @var \horstoeko\mimedb\MimeDb
      */
-    protected $mimeDb = null;
+    protected $mimeDb;
 
     /**
      * @inheritDoc
@@ -40,15 +40,15 @@ class MimeDbTest extends TestCase
      */
     public function testSingleton(): void
     {
-        $instance = MimeDb::singleton();
+        $mimeDb = MimeDb::singleton();
 
-        $this->assertNotNull($instance);
-        $this->assertInstanceOf(MimeDb::class, $instance);
-        $this->assertEmpty($this->getPrivatePropertyFromObject($instance, 'mimeDatabase')->getValue($instance));
+        $this->assertNotNull($mimeDb);
+        $this->assertInstanceOf(MimeDb::class, $mimeDb);
+        $this->assertEmpty($this->getPrivatePropertyFromObject($mimeDb, 'mimeDatabase')->getValue($mimeDb));
 
-        $instance->findFirstMimeTypeByExtension('.mp4');
+        $mimeDb->findFirstMimeTypeByExtension('.mp4');
 
-        $this->assertNotEmpty($this->getPrivatePropertyFromObject($instance, 'mimeDatabase')->getValue($instance));
+        $this->assertNotEmpty($this->getPrivatePropertyFromObject($mimeDb, 'mimeDatabase')->getValue($mimeDb));
 
         $instance2 = MimeDb::singleton();
 

@@ -25,7 +25,7 @@ class MimeDb
      *
      * @var MimeDb
      */
-    protected static $singleton = null;
+    protected static $singleton;
 
     /**
      * The internal mime database
@@ -124,7 +124,7 @@ class MimeDb
             }
         );
 
-        if (count($foundDbEntries) === 0) {
+        if ($foundDbEntries === []) {
             return null;
         }
 
@@ -182,6 +182,6 @@ class MimeDb
      */
     private function getDbFilename(): string
     {
-        return dirname(__FILE__) . "/assets/mimetypes.json";
+        return __DIR__ . "/assets/mimetypes.json";
     }
 }

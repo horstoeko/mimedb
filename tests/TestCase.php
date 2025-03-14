@@ -37,7 +37,7 @@ abstract class TestCase extends PhpUnitTestCase
     public static function tearDownAfterClass(): void
     {
         foreach (self::$registeredTestCaseFiles as $registeredTestCaseFile) {
-            if (file_exists($registeredTestCaseFile) && is_writeable($registeredTestCaseFile)) {
+            if (file_exists($registeredTestCaseFile) && is_writable($registeredTestCaseFile)) {
                 @unlink($registeredTestCaseFile);
             }
         }
@@ -63,7 +63,7 @@ abstract class TestCase extends PhpUnitTestCase
         parent::tearDown();
 
         foreach ($this->registeredTestFiles as $registeredTestFile) {
-            if (file_exists($registeredTestFile) && is_writeable($registeredTestFile)) {
+            if (file_exists($registeredTestFile) && is_writable($registeredTestFile)) {
                 @unlink($registeredTestFile);
             }
         }
@@ -118,9 +118,9 @@ abstract class TestCase extends PhpUnitTestCase
     public function getPrivatePropertyFromClassname(string $className, string $propertyName): ReflectionProperty
     {
         $reflector = new ReflectionClass($className);
-        $property = $reflector->getProperty($propertyName);
-        $property->setAccessible(true);
-        return $property;
+        $reflectionProperty = $reflector->getProperty($propertyName);
+        $reflectionProperty->setAccessible(true);
+        return $reflectionProperty;
     }
 
     /**
@@ -133,9 +133,9 @@ abstract class TestCase extends PhpUnitTestCase
     public function getPrivatePropertyFromObject(object $object, string $propertyName): ReflectionProperty
     {
         $reflector = new ReflectionClass($object);
-        $property = $reflector->getProperty($propertyName);
-        $property->setAccessible(true);
-        return $property;
+        $reflectionProperty = $reflector->getProperty($propertyName);
+        $reflectionProperty->setAccessible(true);
+        return $reflectionProperty;
     }
 
     /**
@@ -148,9 +148,9 @@ abstract class TestCase extends PhpUnitTestCase
     public function getPrivateMethodFromClassname(string $className, string $methodName): ReflectionMethod
     {
         $reflector = new ReflectionClass($className);
-        $method = $reflector->getMethod($methodName);
-        $method->setAccessible(true);
-        return $method;
+        $reflectionMethod = $reflector->getMethod($methodName);
+        $reflectionMethod->setAccessible(true);
+        return $reflectionMethod;
     }
 
     /**
@@ -163,8 +163,8 @@ abstract class TestCase extends PhpUnitTestCase
     public function getPrivateMethodFromObject(object $object, string $methodName): ReflectionMethod
     {
         $reflector = new ReflectionClass($object);
-        $method = $reflector->getMethod($methodName);
-        $method->setAccessible(true);
-        return $method;
+        $reflectionMethod = $reflector->getMethod($methodName);
+        $reflectionMethod->setAccessible(true);
+        return $reflectionMethod;
     }
 }

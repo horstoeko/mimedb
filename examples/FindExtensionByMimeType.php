@@ -4,7 +4,7 @@ use horstoeko\mimedb\MimeDb;
 
 error_reporting(E_ERROR | E_WARNING | E_PARSE);
 
-require dirname(__FILE__) . "/../vendor/autoload.php";
+require __DIR__ . "/../vendor/autoload.php";
 
 $mimeDb = MimeDb::singleton();
 
