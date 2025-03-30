@@ -117,16 +117,34 @@ jobs:
         continue-on-error: true
         run: |
           zip -r build/dist/doc.zip build/doc
+          zip -r build/dist/builddoc.zip build/builddoc build/coverage build/coverage-html build/logs build/pdepend build/phpdoc
 
       - name: Publish Unit Test Results
         uses: EnricoMi/publish-unit-test-result-action@v2
         with:
           files: "build/logs/junit.xml"
 
-      - name: Make Release
-        uses: "marvinpinto/action-automatic-releases@latest"
+      - name: Publish Build Logs
+        uses: actions/upload-artifact@v4
         with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          prerelease: false
-          files: |
-            build/dist/doc.zip
+          name: Build log artifacts for ubuntu-24.04 PHP 8.3 (Release)
+          path: build/logs
+
+      - name: Generate Release Notes
+        id: changelog
+        run: |
+          prev_tag=$(git tag -l --sort=-v:refname | sed -n '2p')
+          curr_tag=$(git tag -l --sort=-v:refname | sed -n '1p')
+          if [ -z "$prev_tag" ]; then
+            prev_tag=$(git rev-list --max-parents=0 HEAD)
+          fi
+          if [ -z "$curr_tag" ]; then
+            curr_tag=$(git rev-parse HEAD)
+          fi
+          git log --no-merges --pretty=format:"- %s (%an)" $prev_tag..$curr_tag | grep -Ev '^\- \[INFR\]|\- \[CS\] |\- \[DOC\] ' | sed -E 's/^- (#.*)/- [ENH] \1/' > build/releasenotes.txt
+
+      - name: Make Release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "build/dist/doc.zip,build/dist/builddoc.zip"
+          bodyFile: "build/releasenotes.txt"
